@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 number_of_json_file = "01"
+import cv2
 
 path = fr"C:\Users\gaith\Desktop\Final Project23-24\Datasets\InfinityAI_InfiniteRep_pushup_v1.0\data\0000{number_of_json_file}.json"
 with open(path) as f:
