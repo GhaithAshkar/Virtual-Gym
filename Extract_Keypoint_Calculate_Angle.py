@@ -3,6 +3,9 @@ import mediapipe as mp
 import csv
 from Calculate_Angle import calculate_angle
 
+
+
+
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 video_path = r"C:\Users\gaith\Desktop\Final Project23-24\Datasets\pushup images\download (1).jpeg"
