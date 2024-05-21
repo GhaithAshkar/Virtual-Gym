@@ -5,7 +5,7 @@ from Calculate_Angle import calculate_angle
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-video_path = r"C:\Users\gaith\Desktop\Final Project23-24\Datasets\InfinityAI_InfiniteRep_pushup_v1.0\data\000000.mp4"
+video_path = r"C:\Users\gaith\Desktop\Final Project23-24\Datasets\pushup images\download (1).jpeg"
 
 # Define the useful keypoints for the push-up exercise
 useful_keypoints = [
@@ -70,7 +70,7 @@ while cap.isOpened():
 cap.release()
 
 # Save the angles data to a CSV file
-csv_file_path = "exercise_angles.csv"
+csv_file_path = "Image_angles.csv"
 headers = [
     'right_elbow_right_shoulder_right_hip',
     'left_elbow_left_shoulder_left_hip',
