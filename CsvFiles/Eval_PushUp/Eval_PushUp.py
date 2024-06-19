@@ -25,14 +25,14 @@ useful_keypoints = [
 ]
 
 # Directory containing the videos
-video_directory = r"C:\Users\gaith\Desktop\Final Project23-24\Datasets\(correct and incorrect )" \
-                  r"Push Up Videos  Classification\archive\Wrong sequence"
+video_directory = (r"C:\Users\gaith\Desktop\Final Project23-24\Scratch GYM extract feature\CsvFiles"
+                   r"\Eval_PushUp\testing_pushup\testing_push_up_v2\my_push_up_in_same_angle")
 # Initialize list to store all angles data
 all_angles_data = []
 
 # Iterate over all video files in the directory
 for video_filename in os.listdir(video_directory):
-    if video_filename.endswith('.mp4'):  # Adjust the extension as needed
+    if video_filename.endswith('same_angle_of_training_video23 (2).mp4'):
         video_path = os.path.join(video_directory, video_filename)
         video_id = os.path.splitext(video_filename)[0]  # Extract video name without extension
 
@@ -61,6 +61,20 @@ for video_filename in os.listdir(video_directory):
                     (frame_keypoints[6][2] + frame_keypoints[7][2]) / 2
                 )
 
+                #calculate mid-shoulder as the average of left shoulder and right shoulder
+                mid_shoulder = (
+                    (frame_keypoints[0][0] + frame_keypoints[1][0]) / 2,
+                    (frame_keypoints[0][1] + frame_keypoints[1][1]) / 2,
+                    (frame_keypoints[0][2] + frame_keypoints[1][2]) / 2
+                )
+                #calculate mid-ankle as the average of left ankle and right ankle
+                mid_ankle = (
+                    (frame_keypoints[10][0] + frame_keypoints[11][0]) / 2,
+                    (frame_keypoints[10][1] + frame_keypoints[11][1]) / 2,
+                    (frame_keypoints[10][2] + frame_keypoints[11][2]) / 2
+                )
+
+
                 # Calculate angles
                 right_elbow_right_shoulder_right_hip = calculate_angle(frame_keypoints[3], frame_keypoints[1], frame_keypoints[7])
                 left_elbow_left_shoulder_left_hip = calculate_angle(frame_keypoints[2], frame_keypoints[0], frame_keypoints[6])
@@ -69,6 +83,8 @@ for video_filename in os.listdir(video_directory):
                 left_hip_left_knee_left_ankle = calculate_angle(frame_keypoints[6], frame_keypoints[8], frame_keypoints[10])
                 right_wrist_right_elbow_right_shoulder = calculate_angle(frame_keypoints[5], frame_keypoints[3], frame_keypoints[1])
                 left_wrist_left_elbow_left_shoulder = calculate_angle(frame_keypoints[4], frame_keypoints[2], frame_keypoints[0])
+                mid_shoulder_mid_hip_mid_ankle = calculate_angle(mid_shoulder, mid_hip, mid_ankle)
+
 
                 # Append the data to the list
                 all_angles_data.append([
@@ -81,7 +97,8 @@ for video_filename in os.listdir(video_directory):
                     left_hip_left_knee_left_ankle,
                     right_wrist_right_elbow_right_shoulder,
                     left_wrist_left_elbow_left_shoulder,
-                    ''  # Placeholder for correct_Incorrect
+                    mid_shoulder_mid_hip_mid_ankle,
+                    ''  #  correct_Incorrect,our label
                 ])
 
                 frame_order += 1
@@ -89,7 +106,8 @@ for video_filename in os.listdir(video_directory):
         cap.release()
 
 # Save the angles data to a CSV file
-csv_file_path = "Incorrect_pushup.csv"
+csv_file_path = (r"C:\Users\gaith\Desktop\Final Project23-24\Scratch GYM extract feature\CsvFiles\Eval_PushUp"
+                 r"\testing_pushup\testing_push_up_v2\my_push_up_in_same_angle\same_angle_of_training_video23 (2).csv")
 headers = [
     'video_id',
     'frame_order',
@@ -100,7 +118,8 @@ headers = [
     'left_hip_left_knee_left_ankle',
     'right_wrist_right_elbow_right_shoulder',
     'left_wrist_left_elbow_left_shoulder',
-    'correct_Incorrect'
+    'mid_shoulder_mid_hip_mid_ankle',
+    'ml_class'
 ]
 with open(csv_file_path, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)

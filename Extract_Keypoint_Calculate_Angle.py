@@ -8,7 +8,7 @@ from Calculate_Angle import calculate_angle
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-video_path = r"C:\Users\gaith\Desktop\Final Project23-24\Datasets\pushup images\download (1).jpeg"
+video_path = (r"C:\Users\gaith\Desktop\Mussuab\Mussab.webm")
 
 # Define the useful keypoints for the push-up exercise
 useful_keypoints = [
@@ -50,7 +50,7 @@ while cap.isOpened():
             (frame_keypoints[6][1] + frame_keypoints[7][1]) / 2,
             (frame_keypoints[6][2] + frame_keypoints[7][2]) / 2
         )
-
+        #
         # Calculate angles
         right_elbow_right_shoulder_right_hip = calculate_angle(frame_keypoints[3], frame_keypoints[1], frame_keypoints[7])
         left_elbow_left_shoulder_left_hip = calculate_angle(frame_keypoints[2], frame_keypoints[0], frame_keypoints[6])
@@ -73,7 +73,7 @@ while cap.isOpened():
 cap.release()
 
 # Save the angles data to a CSV file
-csv_file_path = "Image_angles.csv"
+csv_file_path = (r"C:\Users\gaith\Desktop\Mussuab\Mussab_keypoint_py.csv")
 headers = [
     'right_elbow_right_shoulder_right_hip',
     'left_elbow_left_shoulder_left_hip',
@@ -81,7 +81,8 @@ headers = [
     'right_hip_right_knee_right_ankle',
     'left_hip_left_knee_left_ankle',
     'right_wrist_right_elbow_right_shoulder',
-    'left_wrist_left_elbow_left_shoulder'
+    'left_wrist_left_elbow_left_shoulder',
+    'ml_class'
 ]
 with open(csv_file_path, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)

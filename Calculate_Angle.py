@@ -12,7 +12,12 @@ def calculate_angle(a, b, c):
     ba = a - b
     bc = c - b
 
-    cosine_angle = np.dot(ba, bc) / (np.linalg.norm(ba) * np.linalg.norm(bc))
-    angle = np.arccos(cosine_angle)
+    dot_product = np.dot(ba, bc)
+    magnitude_ba = np.linalg.norm(ba)
+    magnitude_bc = np.linalg.norm(bc)
 
-    return np.degrees(angle)
+    cosine_angle = dot_product / (magnitude_ba * magnitude_bc)
+    angle_radians = np.arccos(cosine_angle)
+    angle_degrees = np.degrees(angle_radians)
+
+    return angle_degrees
